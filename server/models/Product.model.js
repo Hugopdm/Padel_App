@@ -7,7 +7,8 @@ const productSchema = new Schema(
             type: String
         },
         category: {
-            type: String
+            type: String,
+            enum: ['palas', 'calzado', 'ropa', 'accesorios']
         },
         description: {
             type: String
@@ -19,10 +20,10 @@ const productSchema = new Schema(
             type: String,
             required: [true, 'La imagen es obligatoria']
         },
-        owner: {
-            type: Schema.type.ObjectId,
-            ref: 'User'
-        }
+        // owner: {
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'User'
+        // }
 
     },
     {
