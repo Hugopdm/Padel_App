@@ -7,7 +7,9 @@ const Navigation = () => {
     return (
         <Navbar className='navbar' bg="dark" variant='dark' expand="lg">
             <Container>
-                <Navbar.Brand href="/">Padel_App</Navbar.Brand>
+                <Link to='/'>
+                    <Navbar.Brand as="div">Padel_App</Navbar.Brand>
+                </Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">

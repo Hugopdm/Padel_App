@@ -10,7 +10,7 @@ const { isAuthenticated } = require('./../middleware/jwt.middleware')
 
 router.post('/signup', (req, res, next) => {
 
-    const { email, password, userName, userImageUrl } = req.body
+    const { email, password, userName, imageUrl } = req.body
 
     if (password.length < 3) {
         res.status(400).json({ message: 'La contraseña debe tener más de 4 caracteres.' })
@@ -29,11 +29,11 @@ router.post('/signup', (req, res, next) => {
             const salt = bcrypt.genSaltSync(saltRounds)
             const hashedPassword = bcrypt.hashSync(password, salt)
 
-            return User.create({ email, password: hashedPassword, userName, userImageUrl })
+            return User.create({ email, password: hashedPassword, userName, imageUrl })
         })
         .then((createdUser) => {
-            const { email, userName, userImageUrl, _id } = createdUser
-            const user = { email, userName, userImageUrl, _id }
+            const { email, userName, imageUrl, _id } = createdUser
+            const user = { email, userName, imageUrl, _id }
 
             res.status(201).json({ user })
         })
@@ -64,9 +64,9 @@ router.post('/login', (req, res, next) => {
 
             if (bcrypt.compareSync(password, foundUser.password)) {
 
-                const { _id, email, userName, userImageUrl } = foundUser
+                const { _id, email, userName, imageUrl } = foundUser
 
-                const payload = { _id, email, userName, userImageUrl }
+                const payload = { _id, email, userName, imageUrl }
 
                 const authToken = jwt.sign(
                     payload,

@@ -20,14 +20,13 @@ const productSchema = new Schema(
             type: String,
             required: [true, 'La imagen es obligatoria']
         },
-        // owner: {
-        //     type: Schema.Types.ObjectId,
-        //     ref: 'User'
-        // }
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
 
     },
     {
-
         timestamps: true
     }
 )
