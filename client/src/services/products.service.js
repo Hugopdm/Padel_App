@@ -9,7 +9,6 @@ class ProductService {
         })
     }
 
-
     getProducts() {
         return this.api.get('/getAllProducts')
     }
@@ -19,11 +18,19 @@ class ProductService {
     }
 
     saveProduct(productData) {
-        return this.api.get('/saveProduct', productData)
+        return this.api.post('/saveProduct', productData)
+    }
+
+    editProduct(product_id, productData) {
+        return this.api.put(`/editProduct/${product_id}`, productData)
+    }
+
+    deleteProduct(product_id) {
+        return this.api.delete(`/deleteProduct/${product_id}`)
     }
 
 }
 
-const productService = new ProductService()
+const productsService = new ProductService()
 
-export default ProductService
+export default productsService
