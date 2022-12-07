@@ -7,6 +7,18 @@ class ProductService {
         this.api = axios.create({
             baseURL: `${process.env.REACT_APP_API_URL}/products`
         })
+
+
+        this.api.interceptors.request.use((config) => {
+
+            const storedToken = localStorage.getItem("authToken");
+
+            if (storedToken) {
+                config.headers = { Authorization: `Bearer ${storedToken}` }
+            }
+
+            return config
+        })
     }
 
     getProducts() {
@@ -27,6 +39,10 @@ class ProductService {
 
     deleteProduct(product_id) {
         return this.api.delete(`/deleteProduct/${product_id}`)
+    }
+
+    getUserProducts() {
+        return this.api.get('/getUserProducts')
     }
 
 }
