@@ -1,9 +1,13 @@
 import './Navigation.css'
-
+import { useContext } from 'react'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../contexts/auth.context'
 
 const Navigation = () => {
+
+    const { user, logoutUser } = useContext(AuthContext)
+
     return (
         <Navbar className='navbar' bg="dark" variant='dark' expand="lg">
             <Container>
@@ -19,6 +23,12 @@ const Navigation = () => {
                         </Link>
                     </Nav>
 
+                    <Nav>
+                        <Link to='/'>
+                            <Nav.Link as="div" onClick={logoutUser}>Cerrar sesión</Nav.Link>
+                        </Link>
+                    </Nav>
+
                     <NavDropdown title="Mi perfil" id="basic-nav-dropdown">
                         <Link to='/registro'>
                             <NavDropdown.Item as="div">Registrarse</NavDropdown.Item>
@@ -27,7 +37,7 @@ const Navigation = () => {
                             <NavDropdown.Item as="div">Iniciar sesión</NavDropdown.Item>
                         </Link>
                         <NavDropdown.Divider />
-                        <Link to='/perfil'>
+                        <Link to="/perfil">
                             <NavDropdown.Item as="div">Mi perfil</NavDropdown.Item>
                         </Link>
                     </NavDropdown>
