@@ -17,6 +17,8 @@ const ProductDetailsPage = () => {
             .catch(err => console.error(err))
     }, [])
 
+    const { description, productName, price, imageUrl } = product
+
     return (
         <Container>
             {
@@ -25,14 +27,14 @@ const ProductDetailsPage = () => {
                     <h1>Loading...</h1>
                     :
                     <>
-                        <h1 className="mb-4">Detalles de {product.productName}</h1>
+                        <h1 className="mb-4">Detalles de {productName}</h1>
                         <hr />
                         <Row>
                             <Col md={{ span: 6, offset: 1 }}>
                                 <h3>Descripción</h3>
-                                <p>{product.description}</p>
+                                <p>{description}</p>
                                 <h4>Precio</h4>
-                                <p>{product.price}</p>
+                                <p>{price}</p>
                                 <hr />
 
                                 <Link to="/productos">
@@ -41,7 +43,7 @@ const ProductDetailsPage = () => {
                             </Col>
 
                             <Col md={{ span: 4 }}>
-                                <img src={product.imageUrl} style={{ width: '100%' }} />
+                                <img src={imageUrl} style={{ width: '100%' }} />
                             </Col>
                         </Row>
                     </>

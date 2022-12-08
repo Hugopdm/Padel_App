@@ -3,6 +3,7 @@ import './ProductsListPage.css'
 import { useState, useEffect } from 'react'
 import productsService from '../../services/products.service'
 import ProductsList from '../../components/ProductsList/ProductsList'
+import Loader from '../../components/Loader/Loader'
 import { Container } from 'react-bootstrap'
 
 const ProductsListPage = () => {
@@ -21,7 +22,7 @@ const ProductsListPage = () => {
         <Container>
             <h1>Nuestros Productos</h1>
             <hr />
-            {!products ? <h1>Esperando...</h1> : <ProductsList products={products} />}
+            {!products ? <Loader /> : <ProductsList products={products} />}
         </Container>
     )
 }

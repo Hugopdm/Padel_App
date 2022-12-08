@@ -7,12 +7,13 @@ const PrivateRoute = () => {
 
     const { user, isLoading } = useContext(AuthContext)
 
+    console.log(user, isLoading)
     if (isLoading) {
         return <Loader />
     }
 
     if (!user) {
-        return <Navigate to="/acceder" />
+        return <Navigate to="/iniciar-sesion" />
     }
 
     return <Outlet />

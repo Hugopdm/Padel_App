@@ -4,7 +4,7 @@ import { Container, Button, Modal } from 'react-bootstrap'
 import productsService from '../../services/products.service'
 import NewProductForm from './../../components/NewProductForm/NewProductForm'
 import ProductsList from '../../components/ProductsList/ProductsList'
-
+import Loader from '../../components/Loader/Loader'
 
 const ProfilePage = () => {
 
@@ -24,7 +24,6 @@ const ProfilePage = () => {
     const fireFinalActions = () => {
         closeModal()
         loadProducts()
-
     }
 
     useEffect(() => {
@@ -35,12 +34,12 @@ const ProfilePage = () => {
     return (
         <>
             <Container>
-                <h1>Añade tu producto</h1>
+                <h1>Tus productos</h1>
                 <hr />
                 <Button variant='dark' onClick={openModal}>Crear Producto</Button>
             </Container>
 
-            {!products ? <h1>Esperando...</h1> : <ProductsList products={products} />}
+            {!products ? <Loader /> : <ProductsList products={products} />}
 
             <Modal show={showModal} onHide={closeModal}>
                 <Modal.Header closeButton>

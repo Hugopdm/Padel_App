@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import { Link } from 'react-router-dom'
 
-function ProductCard({ productName, imageUrl, _id }) {
+function ProductCard({ productName, imageUrl, _id, owner }) {
     return (
         <Card className='ProductCard mb-4'>
             <Card.Img variant="top" src={imageUrl} />

@@ -18,29 +18,58 @@ const Navigation = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
 
                     <Nav className="me-auto">
-                        <Link to='/productos'>
-                            <Nav.Link as="div">Tienda</Nav.Link>
-                        </Link>
+                        <Nav.Link as="div">¡Hola, {!user ? 'invitad@' : user.userName}!</Nav.Link>
+
+                        {user ?
+                            <>
+                                <Link to='/productos'>
+                                    <Nav.Link as="div">Tienda</Nav.Link>
+                                </Link>
+
+                            </>
+                            :
+                            <>
+                                <Nav.Link as="div">Regístrate par ver nuestra Tienda</Nav.Link>
+                            </>
+
+                        }
+
+                        {/* <Link to='/productos'>
+                            <Nav.Link as="div">{!user ? 'Regístrate para ver nuestra Tienda' : 'Tienda'}</Nav.Link>
+                        </Link> */}
+
                     </Nav>
 
-                    <Nav>
-                        <Link to='/'>
-                            <Nav.Link as="div" onClick={logoutUser}>Cerrar sesión</Nav.Link>
-                        </Link>
-                    </Nav>
+                    <Nav className='me-rigth'>
 
-                    <NavDropdown title="Mi perfil" id="basic-nav-dropdown">
-                        <Link to='/registro'>
-                            <NavDropdown.Item as="div">Registrarse</NavDropdown.Item>
-                        </Link>
-                        <Link to='/iniciar-sesion'>
-                            <NavDropdown.Item as="div">Iniciar sesión</NavDropdown.Item>
-                        </Link>
-                        <NavDropdown.Divider />
-                        <Link to="/perfil">
-                            <NavDropdown.Item as="div">Mi perfil</NavDropdown.Item>
-                        </Link>
-                    </NavDropdown>
+
+                        {user ?
+                            <>
+                                <Link to='/'>
+                                    <Nav.Link as="div" onClick={logoutUser}>Cerrar sesión</Nav.Link>
+                                </Link>
+
+                            </>
+                            :
+                            <>
+
+                                <Link to="/perfil">
+                                    <Nav.Link as="div">Mi perfil</Nav.Link>
+                                </Link>
+                            </>
+                        }
+
+                        <NavDropdown title="Únete" id="basic-nav-dropdown">
+                            <Link to='/registro'>
+                                <NavDropdown.Item as="div">Registrarse</NavDropdown.Item>
+                            </Link>
+                            <NavDropdown.Divider />
+                            <Link to='/iniciar-sesion'>
+                                <NavDropdown.Item as="div">Iniciar sesión</NavDropdown.Item>
+                            </Link>
+                        </NavDropdown>
+
+                    </Nav>
 
                 </Navbar.Collapse>
             </Container>

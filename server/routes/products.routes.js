@@ -7,7 +7,7 @@ router.get("/getAllProducts", (req, res) => {
 
     Product
         .find()
-        .select({ productName: 1, imageUrl: 1 })
+        .select({ productName: 1, imageUrl: 1, owner: 1 })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(response))
 })
