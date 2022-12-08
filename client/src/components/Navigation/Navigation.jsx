@@ -34,14 +34,9 @@ const Navigation = () => {
 
                         }
 
-                        {/* <Link to='/productos'>
-                            <Nav.Link as="div">{!user ? 'Regístrate para ver nuestra Tienda' : 'Tienda'}</Nav.Link>
-                        </Link> */}
-
                     </Nav>
 
                     <Nav className='me-rigth'>
-
 
                         {user ?
                             <>
@@ -49,26 +44,23 @@ const Navigation = () => {
                                     <Nav.Link as="div" onClick={logoutUser}>Cerrar sesión</Nav.Link>
                                 </Link>
 
-                            </>
-                            :
-                            <>
-
                                 <Link to="/perfil">
                                     <Nav.Link as="div">Mi perfil</Nav.Link>
                                 </Link>
                             </>
+                            :
+                            <>
+                                <NavDropdown title="Únete" id="basic-nav-dropdown">
+                                    <Link to='/registro'>
+                                        <NavDropdown.Item as="div">Registrarse</NavDropdown.Item>
+                                    </Link>
+                                    <NavDropdown.Divider />
+                                    <Link to='/iniciar-sesion'>
+                                        <NavDropdown.Item as="div">Iniciar sesión</NavDropdown.Item>
+                                    </Link>
+                                </NavDropdown>
+                            </>
                         }
-
-                        <NavDropdown title="Únete" id="basic-nav-dropdown">
-                            <Link to='/registro'>
-                                <NavDropdown.Item as="div">Registrarse</NavDropdown.Item>
-                            </Link>
-                            <NavDropdown.Divider />
-                            <Link to='/iniciar-sesion'>
-                                <NavDropdown.Item as="div">Iniciar sesión</NavDropdown.Item>
-                            </Link>
-                        </NavDropdown>
-
                     </Nav>
 
                 </Navbar.Collapse>

@@ -37,18 +37,21 @@ const ProfilePage = () => {
                 <h1>Tus productos</h1>
                 <hr />
                 <Button variant='dark' onClick={openModal}>Crear Producto</Button>
+                {/* <Button variant='warning' onClick={openModal}>Editar Producto</Button> */}
             </Container>
 
             {!products ? <Loader /> : <ProductsList products={products} />}
 
             <Modal show={showModal} onHide={closeModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Nuevo Producto</Modal.Title>
+                    <Modal.Title>Crear Producto</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <NewProductForm fireFinalActions={fireFinalActions} /*setShowToast={setShowToast} setToastMessage={setToastMessage}*/ />
                 </Modal.Body>
             </Modal>
+
+
         </>
     )
 }

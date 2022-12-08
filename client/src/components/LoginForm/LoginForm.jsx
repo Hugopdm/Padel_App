@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap"
 import authService from '../../services/auth.service'
 import { AuthContext } from "../../contexts/auth.context"
 import { useNavigate } from "react-router-dom"
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 const LoginForm = () => {
 
@@ -13,6 +14,7 @@ const LoginForm = () => {
 
     })
 
+    const [errors, setErrors] = useState([])
     const { storeToken, authenticateUser } = useContext(AuthContext)
 
     const handleInputChange = e => {
@@ -34,9 +36,8 @@ const LoginForm = () => {
                 authenticateUser()
                 navigate('/perfil')
             })
-            .catch(err => console.log(err))
+            .catch(err => setErrors(err.response.data.errorMessages))
     }
-
 
 
     const { password, email } = signupData
@@ -44,8 +45,6 @@ const LoginForm = () => {
     return (
 
         <Form onSubmit={handleSubmit}>
-
-
 
             <Form.Group className="mb-3" controlId="email">
                 <Form.Label>Email</Form.Label>
@@ -57,7 +56,7 @@ const LoginForm = () => {
                 <Form.Control type="password" value={password} onChange={handleInputChange} name="password" />
             </Form.Group>
 
-
+            {errors.length ? <ErrorMessage>{errors.map(elm => <p key={elm}>{elm}</p>)}</ErrorMessage> : undefined}
 
             <div className="d-grid">
                 <Button variant="dark" type="submit">Iniciar sesión</Button>

@@ -3,13 +3,13 @@ const router = require("express").Router()
 const { isAuthenticated } = require("../middleware/jwt.middleware")
 const Product = require('./../models/Product.model')
 
-router.get("/getAllProducts", (req, res) => {
+router.get("/getAllProducts", (req, res, next) => {
 
     Product
         .find()
         .select({ productName: 1, imageUrl: 1, owner: 1 })
         .then(response => res.json(response))
-        .catch(err => res.status(500).json(response))
+        .catch(err => next(err))
 })
 
 router.get("/getOneProduct/:product_id", (req, res, next) => {
@@ -22,14 +22,14 @@ router.get("/getOneProduct/:product_id", (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post("/saveProduct", isAuthenticated, (req, res) => {
+router.post("/saveProduct", isAuthenticated, (req, res, next) => {
 
     const { productName, category, price, imageUrl, description } = req.body
 
     Product
         .create({ ...req.body, owner: req.payload._id })
         .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
 })
 
 router.put("/editProduct/:product_id", (req, res, next) => {
@@ -40,7 +40,7 @@ router.put("/editProduct/:product_id", (req, res, next) => {
     Product
         .findByIdAndUpdate(product_id, { productName, category, description, price, imageUrl, owner }, { new: true })
         .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
+        .catch(err => next(err))
 })
 
 router.delete("/deleteProduct/:product_id", (req, res, next) => {
@@ -53,15 +53,14 @@ router.delete("/deleteProduct/:product_id", (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.get("/getUserProducts", isAuthenticated, (req, res) => {
+router.get("/getUserProducts", isAuthenticated, (req, res, next) => {
 
     Product
         .find({ owner: req.payload._id })
         .select({ productName: 1, imageUrl: 1 })
         .then(response => res.json(response))
-        .catch(err => res.status(500).json(response))
+        .catch(err => next(err))
 })
-
 
 
 module.exports = router

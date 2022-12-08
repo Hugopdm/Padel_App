@@ -10,12 +10,16 @@ const ProductsListPage = () => {
 
     const [products, setProducts] = useState([])
 
-    useEffect(() => {
-
+    const getTheProducts = () => {
         productsService
             .getProducts()
             .then(({ data }) => setProducts(data))
             .catch(err => console.log(err))
+    }
+
+    useEffect(() => {
+        getTheProducts()
+
     }, [])
 
     return (

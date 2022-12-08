@@ -9,7 +9,7 @@ const productSchema = new Schema(
         },
         category: {
             type: String,
-            enum: ['palas', 'calzado', 'ropa', 'accesorios'],
+            enum: ['Palas', 'Calzado', 'Ropa', 'Accesorios'],
             require: [true, 'Seleccione categoria.']
         },
         description: {

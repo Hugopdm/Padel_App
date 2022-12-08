@@ -10,11 +10,15 @@ const ProductDetailsPage = () => {
 
     const { product_id } = useParams()
 
-    useEffect(() => {
+    const loadOneProduct = () => {
         productsService
             .getOneProduct(product_id)
             .then(({ data }) => setProduct(data))
             .catch(err => console.error(err))
+    }
+
+    useEffect(() => {
+        loadOneProduct()
     }, [])
 
     const { description, productName, price, imageUrl } = product

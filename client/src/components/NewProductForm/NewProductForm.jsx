@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import productsService from '../../services/products.service'
 import uploadServices from '../../services/upload.service'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 
 const NewProductForm = ({ fireFinalActions }) => {
@@ -15,6 +16,7 @@ const NewProductForm = ({ fireFinalActions }) => {
     })
 
     const [loadingImage, setLoadingImage] = useState(false)
+    const [errors, setErrors] = useState([])
 
     const handleInputChange = e => {
         const { name, value } = e.target
@@ -43,7 +45,7 @@ const NewProductForm = ({ fireFinalActions }) => {
         productsService
             .saveProduct(productData)
             .then(() => fireFinalActions())
-            .catch(err => console.error(err))
+            .catch(err => setErrors(err.response.data.errorMessages))
     }
 
     const { productName, description, category, price, imageUrl } = productData
@@ -64,12 +66,12 @@ const NewProductForm = ({ fireFinalActions }) => {
                 <Col>
                     <Form.Group className="mb-3" controlId="category">
                         <Form.Label>Categoría</Form.Label>
-                        <Form.Select type="select" onChange={handleInputChange} name="category">
-                            <option >Selecciona categoría</option>
-                            <option value="palas">Palas</option>
-                            <option value="calzado">Calzado</option>
-                            <option value="ropa">Ropa</option>
-                            <option value="accesorios">Accesorios</option>
+                        <Form.Select type='select' onChange={handleInputChange} name="category">
+                            <option value='Selecciona categoría'>Selecciona categoría</option>
+                            <option value='Palas'>Palas</option>
+                            <option value='Calzado'>Calzado</option>
+                            <option value='Ropa'>Ropa</option>
+                            <option value='Accesorios'>Accesorios</option>
                         </Form.Select>
                     </Form.Group>
                 </Col>
@@ -84,6 +86,8 @@ const NewProductForm = ({ fireFinalActions }) => {
                 <Form.Label>Imagen del producto</Form.Label>
                 <Form.Control type="file" onChange={handleFileUpload} />
             </Form.Group>
+
+            {errors.length ? <ErrorMessage>{errors.map(elm => <p key={elm}>{elm}</p>)}</ErrorMessage> : undefined}
 
             <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Subiendo imagen...' : 'Crear producto'}</Button>
         </Form>

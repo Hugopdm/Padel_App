@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap"
 import authService from '../../services/auth.service'
 import uploadServices from '../../services/upload.service'
 import { useNavigate } from 'react-router-dom'
-
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 const SignupForm = () => {
 
@@ -15,6 +15,7 @@ const SignupForm = () => {
     })
 
     const [loadingImage, setLoadingImage] = useState(false)
+    const [errors, setErrors] = useState([])
 
     const handleInputChange = e => {
         const { value, name } = e.target
@@ -49,7 +50,7 @@ const SignupForm = () => {
             .then(() => {
                 navigate('/')
             })
-            .catch(err => console.log(err))
+            .catch(err => setErrors(err.response.data.errorMessages))
     }
 
 
@@ -84,6 +85,7 @@ const SignupForm = () => {
                 <Form.Control type="file" onChange={handleFileUpload} />
             </Form.Group>
 
+            {errors.length ? <ErrorMessage>{errors.map(elm => <p key={elm}>{elm}</p>)}</ErrorMessage> : undefined}
 
             <div className="d-grid">
                 <Button variant="dark" type="submit">Registrarme</Button>

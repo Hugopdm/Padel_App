@@ -13,7 +13,7 @@ module.exports = (app) => {
 
     if (err.name === 'ValidationError') {
       let errorMessages = Object.values(err.errors).map(el => el.message)
-      res.status(409).json({ errorMessages })
+      res.status(400).json({ errorMessages })
     }
 
     console.error("ERROR", req.method, req.path, err)

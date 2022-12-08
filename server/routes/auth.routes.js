@@ -2,45 +2,26 @@ const router = require('express').Router()
 const bcrypt = require('bcryptjs')
 
 const User = require("../models/User.model")
-const saltRounds = 10
+
 
 const jwt = require('jsonwebtoken')
 const { isAuthenticated } = require('./../middleware/jwt.middleware')
-
 
 router.post('/signup', (req, res, next) => {
 
     const { email, password, userName, imageUrl } = req.body
 
-    if (password.length < 3) {
-        res.status(400).json({ message: 'La contraseña debe tener más de 4 caracteres.' })
-        return
-    }
 
     User
-        .findOne({ email })
-        .then((foundUser) => {
-
-            if (foundUser) {
-                res.status(400).json({ message: "El usuario ya existe." })
-                return
-            }
-
-            const salt = bcrypt.genSaltSync(saltRounds)
-            const hashedPassword = bcrypt.hashSync(password, salt)
-
-            return User.create({ email, password: hashedPassword, userName, imageUrl })
-        })
+        .create({ email, password: userName, imageUrl })
         .then((createdUser) => {
+
             const { email, userName, imageUrl, _id } = createdUser
             const user = { email, userName, imageUrl, _id }
 
             res.status(201).json({ user })
         })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({ message: "Internal Server Error" })
-        })
+        .catch(err => next(err))
 })
 
 
@@ -49,7 +30,7 @@ router.post('/login', (req, res, next) => {
     const { email, password } = req.body
 
     if (email === '' || password === '') {
-        res.status(400).json({ message: "Provide email and password." })
+        res.status(400).json({ errorMessages: ['Indica Email y Contraseña'] })
         return
     }
 
@@ -58,7 +39,7 @@ router.post('/login', (req, res, next) => {
         .then((foundUser) => {
 
             if (!foundUser) {
-                res.status(401).json({ message: "Usuario no encontrado." })
+                res.status(401).json({ errorMessages: ['Usuario no encontrado'] })
                 return;
             }
 
