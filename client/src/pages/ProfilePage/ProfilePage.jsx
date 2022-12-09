@@ -1,6 +1,6 @@
 import './ProfilePage.css'
 import { useState, useEffect } from 'react'
-import { Container, Button, Modal } from 'react-bootstrap'
+import { Container, Row, Col, Button, Modal } from 'react-bootstrap'
 import productsService from '../../services/products.service'
 import NewProductForm from './../../components/NewProductForm/NewProductForm'
 import ProductsList from '../../components/ProductsList/ProductsList'
@@ -33,24 +33,32 @@ const ProfilePage = () => {
 
     return (
         <>
+
             <Container>
-                <h1>Tus productos</h1>
-                <hr />
-                <Button variant='dark' onClick={openModal}>Crear Producto</Button>
-                {/* <Button variant='warning' onClick={openModal}>Editar Producto</Button> */}
+                <Row>
+                    <Col>
+                        <h1>Tus productos</h1>
+                        <hr />
+                        <Button variant='dark' onClick={openModal}>Crear Producto</Button>
+                        <hr />
+
+                        {!products ? <Loader /> : <ProductsList products={products} refreshProducts={loadProducts} />}
+
+                        <Modal show={showModal} onHide={closeModal}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Crear Producto</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <NewProductForm fireFinalActions={fireFinalActions} /*setShowToast={setShowToast} setToastMessage={setToastMessage}*/ />
+                            </Modal.Body>
+                        </Modal>
+                    </Col>
+                    <Col>
+                        <h1>Me interesa</h1>
+                        <hr />
+                    </Col>
+                </Row>
             </Container>
-
-            {!products ? <Loader /> : <ProductsList products={products} />}
-
-            <Modal show={showModal} onHide={closeModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Crear Producto</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <NewProductForm fireFinalActions={fireFinalActions} /*setShowToast={setShowToast} setToastMessage={setToastMessage}*/ />
-                </Modal.Body>
-            </Modal>
-
 
         </>
     )

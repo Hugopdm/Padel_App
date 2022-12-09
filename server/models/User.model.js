@@ -21,7 +21,11 @@ const userSchema = new Schema(
     },
     imageUrl: {
       type: String
-    }
+    },
+    favProduct: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Product'
+    }]
   },
   {
     timestamps: true

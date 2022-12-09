@@ -45,6 +45,14 @@ class ProductService {
         return this.api.get('/getUserProducts')
     }
 
+    likeProduct(product_id) {
+        return this.api.post(`/likeProduct/${product_id}`)
+    }
+
+    unlikeProduct(product_id) {
+        return this.api.post(`/unlikeProduct/${product_id}`)
+    }
+
 }
 
 const productsService = new ProductService()

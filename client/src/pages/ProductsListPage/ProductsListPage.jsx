@@ -26,7 +26,7 @@ const ProductsListPage = () => {
         <Container>
             <h1>Nuestros Productos</h1>
             <hr />
-            {!products ? <Loader /> : <ProductsList products={products} />}
+            {!products ? <Loader /> : <ProductsList products={products} refreshProducts={getTheProducts} />}
         </Container>
     )
 }

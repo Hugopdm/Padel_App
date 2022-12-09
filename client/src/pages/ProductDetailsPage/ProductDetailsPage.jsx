@@ -21,6 +21,8 @@ const ProductDetailsPage = () => {
         loadOneProduct()
     }, [])
 
+
+
     const { description, productName, price, imageUrl } = product
 
     return (

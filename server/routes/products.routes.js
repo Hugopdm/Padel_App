@@ -1,13 +1,14 @@
 const router = require("express").Router()
 
+const { response } = require("express")
 const { isAuthenticated } = require("../middleware/jwt.middleware")
 const Product = require('./../models/Product.model')
+const User = require('./../models/User.model')
 
 router.get("/getAllProducts", (req, res, next) => {
 
     Product
         .find()
-        .select({ productName: 1, imageUrl: 1, owner: 1 })
         .then(response => res.json(response))
         .catch(err => next(err))
 })
@@ -57,7 +58,26 @@ router.get("/getUserProducts", isAuthenticated, (req, res, next) => {
 
     Product
         .find({ owner: req.payload._id })
-        .select({ productName: 1, imageUrl: 1 })
+        .then(response => res.json(response))
+        .catch(err => next(err))
+})
+//----------
+router.post("/likeProduct/:product_id", isAuthenticated, (req, res, next) => {
+
+    const { product_id } = req.params
+
+    User
+        .findByIdAndUpdate(req.payload._id, { $addToSet: { favProduct: product_id } })
+        .then(response => res.json(response))
+        .catch(err => next(err))
+})
+
+router.post("/unlikeProduct/:product_id", isAuthenticated, (req, res, next) => {
+
+    const { product_id } = req.params
+
+    User
+        .findByIdAndUpdate(req.payload._id, { $pull: { favProduct: product_id } })
         .then(response => res.json(response))
         .catch(err => next(err))
 })
