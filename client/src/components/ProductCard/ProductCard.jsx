@@ -28,8 +28,21 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
     const openModal = () => setShowModal(true)
     const closeModal = () => setShowModal(false)
 
-    const likeProduct = () => setProducts()
-    const unlikeProduct = () => setProducts()
+    const likeProduct = () => {
+
+        productsService
+            .likeProduct(_id)
+            .then(() => refreshProducts())
+            .catch(err => console.log(err))
+    }
+
+    const unlikeProduct = () => {
+
+        productsService
+            .unlikeProduct(_id)
+            .then(() => refreshProducts())
+            .catch(err => console.log(err))
+    }
 
 
     const navigate = useNavigate()

@@ -61,7 +61,7 @@ router.get("/getUserProducts", isAuthenticated, (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => next(err))
 })
-//----------
+
 router.post("/likeProduct/:product_id", isAuthenticated, (req, res, next) => {
 
     const { product_id } = req.params
@@ -79,6 +79,19 @@ router.post("/unlikeProduct/:product_id", isAuthenticated, (req, res, next) => {
     User
         .findByIdAndUpdate(req.payload._id, { $pull: { favProduct: product_id } })
         .then(response => res.json(response))
+        .catch(err => next(err))
+})
+//---------
+router.get("/getLikedProduct", isAuthenticated, (req, res, next) => {
+
+
+    User
+        .findById(req.payload._id)
+        .populate('favProduct')
+        .then(response => {
+            // console.log(response.favProduct)
+            res.json(response.favProduct)
+        })
         .catch(err => next(err))
 })
 

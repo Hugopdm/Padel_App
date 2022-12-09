@@ -11,13 +11,25 @@ const ProfilePage = () => {
     const [products, setProducts] = useState(null)
     const [showModal, setShowModal] = useState(false)
 
+    const [favProducts, setFavProducts] = useState(null)
+
     const openModal = () => setShowModal(true)
     const closeModal = () => setShowModal(false)
 
+
     const loadProducts = () => {
+
         productsService
             .getUserProducts()
             .then(({ data }) => setProducts(data))
+            .catch(err => console.log(err))
+    }
+
+    const getLikedProduct = () => {
+
+        productsService
+            .getLikedProduct()
+            .then(({ data }) => setFavProducts(data))
             .catch(err => console.log(err))
     }
 
@@ -28,6 +40,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         loadProducts()
+        getLikedProduct()
     }, [])
 
 
@@ -56,6 +69,8 @@ const ProfilePage = () => {
                     <Col>
                         <h1>Me interesa</h1>
                         <hr />
+                        {!favProducts ? <Loader /> : <ProductsList products={favProducts} refreshProducts={getLikedProduct} />}
+
                     </Col>
                 </Row>
             </Container>

@@ -13,7 +13,7 @@ router.post('/signup', (req, res, next) => {
 
 
     User
-        .create({ email, password: userName, imageUrl })
+        .create({ email, password, userName, imageUrl })
         .then((createdUser) => {
 
             const { email, userName, imageUrl, _id } = createdUser
