@@ -48,7 +48,7 @@ const SignupForm = () => {
         authService
             .signup(signupData)
             .then(() => {
-                navigate('/')
+                navigate('/iniciar-sesion')
             })
             .catch(err => setErrors(err.response.data.errorMessages))
     }
@@ -85,10 +85,10 @@ const SignupForm = () => {
                 <Form.Control type="file" onChange={handleFileUpload} />
             </Form.Group>
 
+            <hr />
             {errors.length ? <ErrorMessage>{errors.map(elm => <p key={elm}>{elm}</p>)}</ErrorMessage> : undefined}
-
             <div className="d-grid">
-                <Button variant="dark" type="submit">Registrarme</Button>
+                <Button variant="secondary" type="submit">Registrarme</Button>
             </div>
 
         </Form>

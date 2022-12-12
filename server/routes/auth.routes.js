@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs')
 
 const User = require("../models/User.model")
 
-
 const jwt = require('jsonwebtoken')
 const { isAuthenticated } = require('./../middleware/jwt.middleware')
 
@@ -40,14 +39,14 @@ router.post('/login', (req, res, next) => {
 
             if (!foundUser) {
                 res.status(401).json({ errorMessages: ['Usuario no encontrado'] })
-                return;
+                return
             }
 
             if (bcrypt.compareSync(password, foundUser.password)) {
 
-                const { _id, email, userName, imageUrl } = foundUser
+                const { _id, email, userName, imageUrl, favProduct } = foundUser
 
-                const payload = { _id, email, userName, imageUrl }
+                const payload = { _id, email, userName, imageUrl, favProduct }
 
                 const authToken = jwt.sign(
                     payload,

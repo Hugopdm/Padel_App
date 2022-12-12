@@ -1,6 +1,6 @@
 import './Navigation.css'
 import { useContext } from 'react'
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
+import { Navbar, Container, Nav, NavDropdown, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
 
@@ -25,7 +25,6 @@ const Navigation = () => {
                                 <Link to='/productos'>
                                     <Nav.Link as="div">Tienda</Nav.Link>
                                 </Link>
-
                             </>
                             :
                             <>
@@ -47,6 +46,7 @@ const Navigation = () => {
                                 <Link to="/perfil">
                                     <Nav.Link as="div">Mi perfil</Nav.Link>
                                 </Link>
+                                <Image src={user.imageUrl} alt="user image" className='userimgnav' />
                             </>
                             :
                             <>

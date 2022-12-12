@@ -1,0 +1,16 @@
+.userimg {
+    width: 400px;
+    object-fit: cover;
+    border-radius: 50% 10% / 20% 40%;
+    border: 3px solid #124C06;
+    display: block;
+    margin: auto;
+}
+
+.likedprod {
+    background-color: rgb(203, 250, 220);
+}
+
+/* .ProfilePage {
+    background-color: rgb(213, 254, 231);
+} */

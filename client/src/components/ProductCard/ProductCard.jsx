@@ -1,6 +1,5 @@
 import './ProductCard.css'
-import Button from 'react-bootstrap/Button'
-import Card from 'react-bootstrap/Card'
+import { Button, Container, Card } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
 import { Modal } from 'react-bootstrap'
@@ -11,7 +10,9 @@ import { AuthContext } from '../../contexts/auth.context'
 
 function ProductCard({ productName, imageUrl, _id, owner, price, category, description, refreshProducts }) {
     // console.log(refreshProducts)
+
     const { user } = useContext(AuthContext)
+
     const product = {
         productName,
         imageUrl,
@@ -68,23 +69,30 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
 
 
     return (
-        <>
+
+
+        <Container>
             <Card className='ProductCard mb-4'>
-                <Card.Img variant="top" src={imageUrl} />
-                <Card.Body>
-                    <Card.Title>{productName}</Card.Title>
+
+                <Card.Body >
+
                     <Link to={`/detalles/${_id}`} >
                         <div className='d-grid'>
-                            <Button variant="dark">Detalles</Button>
+                            <Card.Img variant="top" src={imageUrl} />
                         </div>
                     </Link>
+                    {/* <Card.Title className='text-center'>{productName}</Card.Title> */}
 
-                    <Link to={'/perfil'}>
+                    {!user?.favProduct?.includes(product._id) ?
+
                         <div className='d-grid'>
                             <Button variant="success" onClick={likeProduct}>Me interesa</Button>
+                        </div>
+                        :
+                        <div className='d-grid'>
                             <Button variant="secondary" onClick={unlikeProduct}>No me interesa</Button>
                         </div>
-                    </Link>
+                    }
 
                     {owner === user._id &&
                         <>
@@ -94,11 +102,8 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
                             </Link>
                         </>
                     }
-
                 </Card.Body>
             </Card>
-
-
 
             <Modal show={showModal} onHide={closeModal}>
                 <Modal.Header closeButton>
@@ -108,8 +113,8 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
                     <EditProductForm fireFinalActions={fireFinalActions} product={product} />
                 </Modal.Body >
             </Modal >
+        </Container>
 
-        </>
     )
 }
 

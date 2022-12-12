@@ -2,7 +2,7 @@ import './Footer.css'
 
 const Footer = () => {
     return (
-        <footer>footer</footer>
+        <footer>@Todos los derechos reservados</footer>
     )
 }
 

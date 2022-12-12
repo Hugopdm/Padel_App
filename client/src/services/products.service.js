@@ -52,10 +52,14 @@ class ProductService {
     unlikeProduct(product_id) {
         return this.api.post(`/unlikeProduct/${product_id}`)
     }
-    //--------
+
     getLikedProduct() {
         return this.api.get('/getLikedProduct')
     }
+    //--------------
+    // getFilteredProduct() {
+    //     return this.api.get('/getFilteredProduct')
+    // }
 }
 
 const productsService = new ProductService()

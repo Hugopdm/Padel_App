@@ -5,6 +5,7 @@ import ProfilePage from '../pages/ProfilePage/ProfilePage'
 import SignupPage from '../pages/SignupPage/SignupPage'
 import LoginPage from '../pages/LoginPage/LoginPage'
 import PrivateRoute from './PrivateRoute'
+import HomePage from '../pages/HomePage/HomePage'
 
 
 const AppRoutes = () => {
@@ -12,7 +13,7 @@ const AppRoutes = () => {
 
         <Routes>
 
-            <Route path='/' element={<h1>Este es el inicio</h1>} />
+            <Route path='/' element={<HomePage />} />
             <Route path='/registro' element={<SignupPage />} />
             <Route path='/iniciar-sesion' element={<LoginPage />} />
 

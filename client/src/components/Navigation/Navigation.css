@@ -2,4 +2,15 @@
     /* background-color: rgb(1, 98, 10) !important; */
     background: linear-gradient(45deg, rgb(7, 8, 8), rgb(7, 122, 18));
     color: white;
+    padding: 0.8em;
 }
+
+.userimgnav {
+    width: 35px;
+    object-fit: cover;
+    border-radius: 50% 50%;
+}
+
+/* .logoimg {
+    width: 35px;
+} */

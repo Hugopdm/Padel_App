@@ -81,7 +81,7 @@ router.post("/unlikeProduct/:product_id", isAuthenticated, (req, res, next) => {
         .then(response => res.json(response))
         .catch(err => next(err))
 })
-//---------
+
 router.get("/getLikedProduct", isAuthenticated, (req, res, next) => {
 
 
@@ -94,6 +94,14 @@ router.get("/getLikedProduct", isAuthenticated, (req, res, next) => {
         })
         .catch(err => next(err))
 })
+//-----------------
+// router.get("/getFilteredProducts", (req, res, next) => {
+
+//     Product
+//         .find()
+//         .then(response => res.json(response))
+//         .catch(err => next(err))
+// })
 
 
 module.exports = router

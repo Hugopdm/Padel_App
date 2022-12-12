@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
+// import { MessageContext } from '../../contexts/userMessage.context'
 import productsService from '../../services/products.service'
 import uploadServices from '../../services/upload.service'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
@@ -18,10 +19,13 @@ const NewProductForm = ({ fireFinalActions }) => {
     const [loadingImage, setLoadingImage] = useState(false)
     const [errors, setErrors] = useState([])
 
+    // const { setShowToast, setToastMessage } = useContext(MessageContext)
+
     const handleInputChange = e => {
         const { name, value } = e.target
         setProductData({ ...productData, [name]: value })
     }
+
 
     const handleFileUpload = e => {
 
@@ -67,7 +71,7 @@ const NewProductForm = ({ fireFinalActions }) => {
                     <Form.Group className="mb-3" controlId="category">
                         <Form.Label>Categoría</Form.Label>
                         <Form.Select type='select' onChange={handleInputChange} name="category">
-                            <option value='Selecciona categoría'>Selecciona categoría</option>
+                            <option value='Selecciona categoría'>Selecciona categoría...</option>
                             <option value='Palas'>Palas</option>
                             <option value='Calzado'>Calzado</option>
                             <option value='Ropa'>Ropa</option>

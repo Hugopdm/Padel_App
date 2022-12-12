@@ -56,10 +56,10 @@ const LoginForm = () => {
                 <Form.Control type="password" value={password} onChange={handleInputChange} name="password" />
             </Form.Group>
 
+            <hr />
             {errors.length ? <ErrorMessage>{errors.map(elm => <p key={elm}>{elm}</p>)}</ErrorMessage> : undefined}
-
             <div className="d-grid">
-                <Button variant="dark" type="submit">Iniciar sesión</Button>
+                <Button variant="secondary" type="submit">Iniciar sesión</Button>
             </div>
 
         </Form>

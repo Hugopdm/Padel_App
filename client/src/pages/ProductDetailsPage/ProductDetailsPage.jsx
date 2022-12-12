@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Container, Row, Col, Button } from "react-bootstrap"
+import { Container, Row, Col, Card, Button } from "react-bootstrap"
 import { Link, useParams } from "react-router-dom"
 import productsService from "../../services/products.service"
 
@@ -23,7 +23,7 @@ const ProductDetailsPage = () => {
 
 
 
-    const { description, productName, price, imageUrl } = product
+    const { description, productName, price, category, imageUrl } = product
 
     return (
         <Container>
@@ -33,24 +33,43 @@ const ProductDetailsPage = () => {
                     <h1>Loading...</h1>
                     :
                     <>
-                        <h1 className="mb-4">Detalles de {productName}</h1>
-                        <hr />
-                        <Row>
+                        <Row className="mt-5 justify-content-center">
+
+
+                            <Col md={{ span: 3 }}>
+                                <img src={imageUrl} style={{ width: '100%' }} />
+                            </Col>
+
+                            <Col md={{ span: 4 }}>
+                                <Card border="success" style={{ width: '18rem' }}>
+                                    <Card.Header className="text-center">{category}</Card.Header>
+                                    <Card.Body>
+                                        <Card.Title>{productName}</Card.Title>
+                                        <Card.Text>{description}</Card.Text>
+                                        <Card.Text>{price} € </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+
+                            <Link to="/productos">
+                                <Button as="div" variant="dark">Volver a la galería</Button>
+                            </Link>
+
+
+                            {/* <h1 className="mt-4 mb-4">{productName}</h1>
+
                             <Col md={{ span: 6, offset: 1 }}>
-                                <h3>Descripción</h3>
+                                <h5>Descripción</h5>
                                 <p>{description}</p>
-                                <h4>Precio</h4>
-                                <p>{price}</p>
+                                <h5>Precio</h5>
+                                <p>{price} €</p>
                                 <hr />
 
                                 <Link to="/productos">
                                     <Button as="div" variant="dark">Volver a la galería</Button>
                                 </Link>
-                            </Col>
+                            </Col> */}
 
-                            <Col md={{ span: 4 }}>
-                                <img src={imageUrl} style={{ width: '100%' }} />
-                            </Col>
                         </Row>
                     </>
             }
