@@ -6,40 +6,37 @@ import ProductsList from '../../components/ProductsList/ProductsList'
 import Loader from '../../components/Loader/Loader'
 import { Container } from 'react-bootstrap'
 import ProductsFilter from '../../components/ProductsFilter/ProductsFilter'
+import { useContext } from 'react'
+import { ProductContext } from '../../contexts/products.context'
 
 
-const ProductsListPage = () => {
+const ProductsListPage = (/*{ refreshProducts }*/) => {
 
-    const [products, setProducts] = useState([])
-
-
-    const getTheProducts = () => {
-
-        productsService
-            .getProducts()
-            .then(({ data }) => setProducts(data))
-            .catch(err => console.log(err))
-    }
-
+    const [filteredProducts, setFilteredeProducts] = useState(null)
+    const { refreshAll, allProducts } = useContext(ProductContext)
 
 
     useEffect(() => {
-        getTheProducts()
-
-
+        refreshAll()
     }, [])
+
+    if (allProducts && !filteredProducts) {
+        setFilteredeProducts(allProducts)
+    }
+
     return (
         <>
             <div>
                 <Container className=' mt-5'>
 
-                    <ProductsFilter setProducts={setProducts} />
+                    <ProductsFilter setProducts={setFilteredeProducts} />
                 </Container>
                 <hr />
                 <Container className='d-grid mb-5'>
                     <h1 className='text-center'>Nuestros Productos</h1>
                     <hr />
-                    {!products ? <Loader /> : <ProductsList products={products} refreshProducts={getTheProducts} />}
+                    {!filteredProducts ? <Loader /> : <ProductsList products={filteredProducts} />}
+                    {/* {!userFavs ? <Loader /> : <ProductsList refreshProducts={getUserFavorites} />} */}
                 </Container>
             </div>
         </>

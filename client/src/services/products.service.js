@@ -56,10 +56,10 @@ class ProductService {
     getLikedProduct() {
         return this.api.get('/getLikedProduct')
     }
-    //--------------
-    // getFilteredProduct() {
-    //     return this.api.get('/getFilteredProduct')
-    // }
+
+    getUserFavs() {
+        return this.api.get('/getUserFavs')
+    }
 }
 
 const productsService = new ProductService()

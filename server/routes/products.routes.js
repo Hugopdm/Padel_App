@@ -33,7 +33,7 @@ router.post("/saveProduct", isAuthenticated, (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.put("/editProduct/:product_id", (req, res, next) => {
+router.put("/editProduct/:product_id", isAuthenticated, (req, res, next) => {
 
     const { productName, category, description, price, imageUrl, owner } = req.body
     const { product_id } = req.params
@@ -44,7 +44,7 @@ router.put("/editProduct/:product_id", (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.delete("/deleteProduct/:product_id", (req, res, next) => {
+router.delete("/deleteProduct/:product_id", isAuthenticated, (req, res, next) => {
 
     const { product_id } = req.params
 
@@ -89,17 +89,21 @@ router.get("/getLikedProduct", isAuthenticated, (req, res, next) => {
         .findById(req.payload._id)
         .populate('favProduct')
         .then(response => {
-            // console.log(response.favProduct)
             res.json(response.favProduct)
         })
         .catch(err => next(err))
 })
 //-----------------
-// router.get("/getFilteredProducts", (req, res, next) => {
+// router.get("/getUserFavs", isAuthenticated, (req, res, next) => {
 
-//     Product
-//         .find()
-//         .then(response => res.json(response))
+
+//     User
+//         .findById(req.payload._id)
+//         .populate('favProduct')
+//         .then(response => {
+//             // console.log(response.favProduct)
+//             res.json(response.favProduct)
+//         })
 //         .catch(err => next(err))
 // })
 

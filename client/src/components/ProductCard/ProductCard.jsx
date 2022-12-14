@@ -6,12 +6,16 @@ import { Modal } from 'react-bootstrap'
 import productsService from '../../services/products.service'
 import EditProductForm from '../EditProductForm/EditProductForm'
 import { AuthContext } from '../../contexts/auth.context'
+import { ProductContext } from '../../contexts/products.context'
+import conversationsService from '../../services/conversations.service'
 
 
-function ProductCard({ productName, imageUrl, _id, owner, price, category, description, refreshProducts }) {
-    // console.log(refreshProducts)
+function ProductCard({ productName, imageUrl, _id, owner, price, category, description }) {
+
+    const navigate = useNavigate()
 
     const { user } = useContext(AuthContext)
+    const { favProducts, refreshAll } = useContext(ProductContext)
 
     const product = {
         productName,
@@ -23,7 +27,6 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
         description
     }
 
-    const [products, setProducts] = useState(null)
     const [showModal, setShowModal] = useState(false)
 
     const openModal = () => setShowModal(true)
@@ -33,7 +36,7 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
 
         productsService
             .likeProduct(_id)
-            .then(() => refreshProducts())
+            .then(() => refreshAll())
             .catch(err => console.log(err))
     }
 
@@ -41,32 +44,37 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
 
         productsService
             .unlikeProduct(_id)
-            .then(() => refreshProducts())
+            .then(() => refreshAll())
             .catch(err => console.log(err))
     }
-
-
-    const navigate = useNavigate()
 
     const deleteProduct = () => {
 
         productsService
             .deleteProduct(_id)
-            .then(() => refreshProducts())
+            .then(() => refreshAll())
+            .catch(err => console.log(err))
+    }
+
+    const createConversation = () => {
+
+        conversationsService
+            .createConversation(_id)
+            .then(({ data }) => navigate(`/conversacion/${data._id}`))
             .catch(err => console.log(err))
     }
 
     const fireFinalActions = () => {
         closeModal()
-        refreshProducts()
-
-
+        refreshAll()
     }
 
-    // useEffect(() => {
-    //     loadProducts()
-    // }, [])
+    useEffect(() => {
+        refreshAll()
+    }, [])
 
+    let ids
+    if (favProducts) { ids = favProducts.map((elm) => elm._id) }
 
     return (
 
@@ -83,16 +91,21 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
                     </Link>
                     {/* <Card.Title className='text-center'>{productName}</Card.Title> */}
 
-                    {!user?.favProduct?.includes(product._id) ?
 
+                    {ids && !ids.includes(product._id) ?
                         <div className='d-grid'>
                             <Button variant="success" onClick={likeProduct}>Me interesa</Button>
                         </div>
                         :
                         <div className='d-grid'>
                             <Button variant="secondary" onClick={unlikeProduct}>No me interesa</Button>
+
+                            <Button variant="info" onClick={createConversation}>Contactar</Button>
+
                         </div>
+
                     }
+
 
                     {owner === user._id &&
                         <>

@@ -1,35 +1,37 @@
+import { useContext } from "react"
 import { useState, useEffect } from "react"
 import { Stack, Form } from "react-bootstrap"
+import { ProductContext } from "../../contexts/products.context"
 import productsService from "../../services/products.service"
 
 
 const ProductsFilter = ({ setProducts }) => {
 
-    const [allProducts, setAllProducts] = useState([{
-        productName: '',
-        description: '',
-        category: '',
-        price: 0,
-        imageUrl: ''
-    }])
-
-
-    const loadProducts = () => {
-        productsService
-            .getProducts()
-            .then(({ data }) => {
-                setAllProducts(data)
-            })
-            .catch(err => console.log(err))
-    }
+    const { refreshAll, allProducts } = useContext(ProductContext)
+    const [mySet, setMySet] = useState([])
 
     useEffect(() => {
-        loadProducts()
+        refreshAll()
     }, [])
+
+    useEffect(() => {
+        console.log('useEffecct')
+        let mySet = []
+
+        if (allProducts) {
+
+            const categories = allProducts.map((elm) => elm.category)
+            mySet = new Set(categories)
+
+        }
+
+        setMySet([...mySet])
+
+    }, [allProducts])
 
 
     const handleSelect = (e) => {
-        console.log(e)
+        // console.log(e)
         if (e.target.value === 'Todos') {
             setProducts(allProducts)
         } else {
@@ -38,31 +40,20 @@ const ProductsFilter = ({ setProducts }) => {
         }
     }
 
-    const categories = allProducts.map((elm) => elm.category)
-
-    const set = new Set(categories)
-    console.log(set)
-    const cleanCategories = []
-
 
     return (
 
         <Stack direction="horizontal" gap={3}>
             <div className="vr" />
             <Form.Select type='select' name="category" onChange={handleSelect}>
-                {cleanCategories.map((elm, idx) => {
+                {mySet.map((elm, idx) => {
                     return (
                         <option key={idx}>{elm}</option>
                     )
-                }
+                })}
+                <option key={Math.random()}>{'Todos'}</option>
 
-                    // {/* <option onSelect={handleSelect} value='Palas'>Palas</option>
-                    // <option onSelect={handleSelect} value='Calzado'>Calzado</option>
-                    // <option onSelect={handleSelect} value='Ropa'>Ropa</option>
-                    // <option onSelect={handleSelect} value='Accesorios'>Accesorios</option> */}
-                )}
             </Form.Select>
-
             {/* <Button variant="dark">Buscar</Button> */}
             <div className="vr" />
         </Stack>

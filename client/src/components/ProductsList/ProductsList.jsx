@@ -1,11 +1,9 @@
+import './ProductsList.css'
 import ProductCard from '../ProductCard/ProductCard'
 import { Container, Row, Col } from 'react-bootstrap'
-import './ProductsList.css'
 
 
-
-const ProductsList = ({ products, refreshProducts }) => {
-
+const ProductsList = ({ products }) => {
 
     return (
 
@@ -14,9 +12,8 @@ const ProductsList = ({ products, refreshProducts }) => {
                 {products.map(elm => {
                     return (
 
-
                         <Col key={elm._id} md={{ span: 3 }} >
-                            <ProductCard {...elm} refreshProducts={refreshProducts} />
+                            <ProductCard {...elm} />
                         </Col>
 
                     )
@@ -26,5 +23,7 @@ const ProductsList = ({ products, refreshProducts }) => {
 
     )
 }
+
+
 
 export default ProductsList

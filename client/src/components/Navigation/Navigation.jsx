@@ -9,7 +9,8 @@ const Navigation = () => {
     const { user, logoutUser } = useContext(AuthContext)
 
     return (
-        <Navbar className='navbar' bg="dark" variant='dark' expand="lg">
+
+        <Navbar className='navbar fixed-top' bg="dark" variant='dark' expand="lg">
             <Container>
                 <Link to='/'>
                     <Navbar.Brand as="div">Padeller</Navbar.Brand>

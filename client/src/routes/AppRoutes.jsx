@@ -6,6 +6,7 @@ import SignupPage from '../pages/SignupPage/SignupPage'
 import LoginPage from '../pages/LoginPage/LoginPage'
 import PrivateRoute from './PrivateRoute'
 import HomePage from '../pages/HomePage/HomePage'
+import ConversationBoardPage from '../pages/ConversationBoardPage/ConversationBoardPage'
 
 
 const AppRoutes = () => {
@@ -21,6 +22,7 @@ const AppRoutes = () => {
                 <Route path='/perfil' element={<ProfilePage />} />
                 <Route path='/productos' element={<ProductsListPage />} />
                 <Route path='/detalles/:product_id' element={<ProductDetailsPage />} />
+                <Route path='/conversacion/:conversation_id' element={<ConversationBoardPage />} />
             </Route>
 
         </Routes>
