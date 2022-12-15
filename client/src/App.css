@@ -1,10 +1,12 @@
 body {
   background-color: rgb(188, 193, 188);
+
 }
 
 .App {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
+  margin-top: 100px;
 }
 
 a {

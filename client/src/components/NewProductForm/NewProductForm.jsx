@@ -92,8 +92,9 @@ const NewProductForm = ({ fireFinalActions }) => {
             </Form.Group>
 
             {errors.length ? <ErrorMessage>{errors.map(elm => <p key={elm}>{elm}</p>)}</ErrorMessage> : undefined}
-
-            <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Subiendo imagen...' : 'Crear producto'}</Button>
+            <div className='d-grid'>
+                <Button className='create' variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Subiendo imagen...' : 'Crear'}</Button>
+            </div>
         </Form>
 
     )

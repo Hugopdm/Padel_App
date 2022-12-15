@@ -7,7 +7,7 @@ const ProductsList = ({ products }) => {
 
     return (
 
-        <Container >
+        <Container className='mb-4'>
             <Row>
                 {products.map(elm => {
                     return (

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button, Card, Form, Col } from "react-bootstrap"
+import { Button, Row, Form, Col, Container } from "react-bootstrap"
 import ConversationBoardPage from "../../pages/ConversationBoardPage/ConversationBoardPage"
 import conversationService from "../../services/conversations.service"
 
@@ -25,25 +25,24 @@ const ConversationBoard = ({ id, getConversation }) => {
             .catch(err => console.log(err))
     }
 
-    console.log(id)
+
 
     return (
-        <>
-
-            <h1>Tablón de conversación</h1>
-
-
-
-            <Form onSubmit={handleFormSubmit} >
-                <Form.Group className="mb-3" controlId="text" >
-                    <Form.Label>Mensaje</Form.Label>
-                    <Form.Control type="text" name="message" onChange={handleInputChange} value={message.message} />
-
-                    <Button variant="secondary" type="submit">Enviar</Button>
-                </Form.Group>
-            </Form >
-
-        </>
+        <Container className="mb-5">
+            <Row>
+                <Col>
+                    <h1 className="text-center">Chat</h1>
+                    <hr />
+                    <Form onSubmit={handleFormSubmit}>
+                        <Form.Group className="mb-1 mt-4" controlId="text" >
+                            {/* <Form.Label></Form.Label> */}
+                            <Form.Control type="text" name="message" onChange={handleInputChange} value={message.message} />
+                            <Button className="mt-1" variant="secondary" type="submit">Enviar</Button>
+                        </Form.Group>
+                    </Form >
+                </Col>
+            </Row>
+        </Container>
 
     )
 }

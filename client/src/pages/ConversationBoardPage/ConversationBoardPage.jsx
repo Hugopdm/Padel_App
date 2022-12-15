@@ -1,13 +1,18 @@
+import './ConversationBoardPage.css'
+
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Card, Image, Button, Container } from "react-bootstrap"
 import ConversationBoard from "../../components/ConversationBoard/ConversationBoard"
 import conversationsService from "../../services/conversations.service"
+import { useContext } from 'react'
+import { AuthContext } from '../../contexts/auth.context'
+
 
 
 const ConversationBoardPage = () => {
 
-
+    const { user } = useContext(AuthContext)
     const [conversation, setConversation] = useState([])
 
     const { conversation_id } = useParams()
@@ -30,7 +35,7 @@ const ConversationBoardPage = () => {
 
 
     return (
-        <Container className='mb-5'>
+        <Container className='board'>
             <ConversationBoard id={conversation_id} getConversation={getConversation} />
 
             {conversation.map(elm => {
@@ -41,7 +46,7 @@ const ConversationBoardPage = () => {
                     // </Col>
 
                     < Card key={elm._id} className='mb-5'>
-                        <Card.Header>
+                        <Card.Header className={elm.writer._id === user?._id ? 'user1' : 'user2'}>
                             <h6>{elm.writer.userName}</h6>
                             {/* <Image src="" alt="" /> */}
                         </Card.Header>
@@ -49,8 +54,6 @@ const ConversationBoardPage = () => {
                             <blockquote className="blockquote mb-0">
                                 <p>{elm.message}</p>
                             </blockquote>
-
-                            {/* <Button variant='danger' >Eliminar</Button> */}
                         </Card.Body>
                     </Card >
                 )

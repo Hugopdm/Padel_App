@@ -15,11 +15,11 @@ const ProductsFilter = ({ setProducts }) => {
     }, [])
 
     useEffect(() => {
-        console.log('useEffecct')
+        // console.log('useEffecct')
         let mySet = []
 
         if (allProducts) {
-
+            // console.log(allProducts.length)
             const categories = allProducts.map((elm) => elm.category)
             mySet = new Set(categories)
 

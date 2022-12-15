@@ -1,9 +1,40 @@
 .ProductCard {
     opacity: 0.8;
-    box-shadow: 10px 10px 10px rgb(4, 62, 14);
+    box-shadow: 10px 10px 10px rgba(4, 62, 14, 0.47);
 }
 
 .ProductCard img {
     height: 250px;
     object-fit: cover;
+}
+
+.userbut {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.edit {
+    border-radius: 50% 10% / 20% 40%;
+}
+
+.delete {
+    border-radius: 50% 10% / 20% 40%;
+}
+
+.message {
+    border-radius: 50% 10% / 20% 40%;
+    background-color: rgba(8, 40, 21, 0.893);
+}
+
+.contact {
+    border-radius: 50% 10% / 20% 40%;
+}
+
+.like {
+    border-radius: 50% 10% / 20% 40%;
+}
+
+.unlike {
+    border-radius: 50% 10% / 20% 40%;
 }

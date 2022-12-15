@@ -95,8 +95,9 @@ const EditProductForm = (props) => {
             </Form.Group>
 
             {errors.length ? <ErrorMessage>{errors.map(elm => <p key={elm}>{elm}</p>)}</ErrorMessage> : undefined}
-
-            <Button variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Subiendo imagen...' : 'Editar producto'}</Button>
+            <div className='d-grid'>
+                <Button className='edit' variant="dark" type="submit" disabled={loadingImage}>{loadingImage ? 'Subiendo imagen...' : 'Editar'}</Button>
+            </div>
         </Form>
 
     )

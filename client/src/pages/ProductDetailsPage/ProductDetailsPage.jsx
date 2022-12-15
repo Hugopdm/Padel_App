@@ -26,7 +26,7 @@ const ProductDetailsPage = () => {
     const { description, productName, price, category, imageUrl } = product
 
     return (
-        <Container>
+        <Container className="ProductsDetails">
             {
                 !product
                     ?
@@ -34,13 +34,17 @@ const ProductDetailsPage = () => {
                     :
                     <>
                         <Row className="mt-5 justify-content-center">
+                            <h1 className="text-center">{category}</h1>
+                            <hr />
+                            <Link className="mt-4 text-center" to="/productos">
+                                <Button as="div" variant="outline-dark">Volver a la galería</Button>
+                            </Link>
 
-
-                            <Col md={{ span: 3 }}>
+                            <Col className="mt-5" md={{ span: 3 }}>
                                 <img src={imageUrl} style={{ width: '100%' }} />
                             </Col>
 
-                            <Col md={{ span: 4 }}>
+                            <Col className="mt-5" md={{ span: 4 }}>
                                 <Card border="success" style={{ width: '18rem' }}>
                                     <Card.Header className="text-center">{category}</Card.Header>
                                     <Card.Body>
@@ -50,25 +54,6 @@ const ProductDetailsPage = () => {
                                     </Card.Body>
                                 </Card>
                             </Col>
-
-                            <Link to="/productos">
-                                <Button as="div" variant="dark">Volver a la galería</Button>
-                            </Link>
-
-
-                            {/* <h1 className="mt-4 mb-4">{productName}</h1>
-
-                            <Col md={{ span: 6, offset: 1 }}>
-                                <h5>Descripción</h5>
-                                <p>{description}</p>
-                                <h5>Precio</h5>
-                                <p>{price} €</p>
-                                <hr />
-
-                                <Link to="/productos">
-                                    <Button as="div" variant="dark">Volver a la galería</Button>
-                                </Link>
-                            </Col> */}
 
                         </Row>
                     </>

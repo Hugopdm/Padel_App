@@ -1,5 +1,5 @@
 import './ProductCard.css'
-import { Button, Container, Card } from 'react-bootstrap'
+import { Button, Container, Card, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
 import { Modal } from 'react-bootstrap'
@@ -103,51 +103,50 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
 
 
         <Container>
-            <Card className='ProductCard mb-4'>
+            <Row>
+                <Card className='ProductCard mb-4'>
 
-                <Card.Body >
+                    <Card.Body >
 
-                    <Link to={`/detalles/${_id}`} >
-                        <div className='d-grid'>
-                            <Card.Img variant="top" src={imageUrl} />
-                        </div>
-                    </Link>
-                    {/* <Card.Title className='text-center'>{productName}</Card.Title> */}
-
-
-                    {ids && !ids.includes(product._id) ?
-
-                        <div className='d-grid'>
-
-                            <Button variant="success" onClick={likeProduct}>Me interesa</Button>
-
-                        </div>
-
-                        :
-                        <div className='d-grid'>
-                            <Button variant="secondary" onClick={unlikeProduct}>No me interesa</Button>
-                            {owner !== user._id &&
-                                <Button variant="info" onClick={createConversation}>Contactar</Button>
-                            }
-                            {/* {owner === user._id &&
-                                <Button variant="dark" onClick={createConversation}>Mensajes</Button>
-                            } */}
-
-                        </div>
-
-                    }
+                        <Link to={`/detalles/${_id}`} >
+                            <div className='d-grid'>
+                                <Card.Img variant="top" src={imageUrl} />
+                            </div>
+                        </Link>
+                        {/* <Card.Title className='text-center'>{productName}</Card.Title> */}
 
 
-                    {owner === user._id &&
-                        <>
-                            <Button variant='warning' onClick={openModal}>Editar</Button>
-                            <Link>
-                                <Button variant='danger' onClick={deleteProduct}>Eliminar</Button>
-                            </Link>
-                        </>
-                    }
-                </Card.Body>
-            </Card>
+                        {ids && !ids.includes(product._id) ?
+
+                            <div className='d-grid mt-3'>
+                                {owner === user._id ?
+                                    <Button className="message" variant="success" onClick={() => navigate('/ventas')}>Mensajes</Button>
+                                    :
+                                    <Button className="like" variant="success" onClick={likeProduct}>Me interesa</Button>
+                                }
+
+                            </div>
+                            :
+                            <div className='d-grid'>
+                                <Button className="unlike" variant="secondary" onClick={unlikeProduct}>No me interesa</Button>
+                                {owner !== user._id &&
+                                    <Button className="contact" variant="info" onClick={createConversation}>Contactar</Button>
+                                }
+                            </div>
+                        }
+
+                        {owner === user._id &&
+                            <div className='userbut mt-2'>
+                                <Button className="edit" variant='outline-warning' onClick={openModal}>Editar</Button>
+
+                                <Button className="delete" variant='outline-danger' onClick={deleteProduct}>Eliminar</Button>
+
+                            </div>
+                        }
+
+                    </Card.Body>
+                </Card>
+            </Row>
 
             <Modal show={showModal} onHide={closeModal}>
                 <Modal.Header closeButton>
@@ -157,7 +156,7 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
                     <EditProductForm fireFinalActions={fireFinalActions} product={product} />
                 </Modal.Body >
             </Modal >
-        </Container>
+        </Container >
 
     )
 }

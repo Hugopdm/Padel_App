@@ -1,4 +1,7 @@
+import './UserConversationsPage.css'
+
 import { useState, useEffect } from "react"
+import { Container, ListGroup } from "react-bootstrap"
 import UserConversations from "../../components/UserConversations/UserConversations"
 import conversationsService from "../../services/conversations.service"
 
@@ -25,9 +28,14 @@ const UserConversationsPage = () => {
 
 
     return (
+        <Container className="mt-5 mb-5">
 
-        <UserConversations userConversations={userConversations} />
+            <h1 className="text-center">Clientes</h1>
+            <hr />
 
+            <UserConversations userConversations={userConversations} />
+
+        </Container>
     )
 
 }

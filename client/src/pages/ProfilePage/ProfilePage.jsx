@@ -24,13 +24,7 @@ const ProfilePage = ({ conversations }) => {
     const openModal = () => setShowModal(true)
     const closeModal = () => setShowModal(false)
 
-    const getUserConversations = () => {
 
-        conversationsService
-            .getUserConversations()
-            .then(({ data }) => setUserConversations(data))
-            .catch(err => console.log(err))
-    }
 
     const gotoChat = (id) => navigate(`/conversacion/${id}`)
 
@@ -38,8 +32,7 @@ const ProfilePage = ({ conversations }) => {
     const fireFinalActions = () => {
         closeModal()
         refreshAll()
-        // setShowToast(true)
-        // setToastMessage('Producto creado en la BBDD')
+
 
     }
 
@@ -47,30 +40,25 @@ const ProfilePage = ({ conversations }) => {
         refreshAll()
     }, [])
 
-    // console.log(userConversations)
+
     return (
         <>
             <div className='ProfilePage'>
                 <Container>
-                    <Row className='mt-4'>
-                        {/* <Col>
+                    <Row className='mt-4 mb-4'>
 
-                            <h1>{user.userName}</h1>
-                        </Col> */}
                         <Col >
                             <Image src={user.imageUrl} alt="user image" className='userimg' />
 
                         </Col>
                     </Row>
-                    <hr />
+
                     <Row>
                         <Col className='mb-5'>
-                            <h1>Productos en venta</h1>
-                            <Button variant='dark' onClick={openModal}>Crear Producto</Button>
-
-
-
-
+                            <div className='text-center'>
+                                <h1 className='text-center'>Productos en venta</h1>
+                                <Button className='create' variant='outline-dark' onClick={openModal}>Crear Producto</Button>
+                            </div>
                             <hr />
 
                             {!userProducts ? <Loader /> : <ProductsList products={userProducts} />}

@@ -10,7 +10,7 @@ import { useContext } from 'react'
 import { ProductContext } from '../../contexts/products.context'
 
 
-const ProductsListPage = (/*{ refreshProducts }*/) => {
+const ProductsListPage = ({ refreshProducts }) => {
 
     const [filteredProducts, setFilteredeProducts] = useState(null)
     const { refreshAll, allProducts } = useContext(ProductContext)
@@ -20,9 +20,9 @@ const ProductsListPage = (/*{ refreshProducts }*/) => {
         refreshAll()
     }, [])
 
-    if (allProducts && !filteredProducts) {
-        setFilteredeProducts(allProducts)
-    }
+    useEffect(() => {
+        if (allProducts) setFilteredeProducts(allProducts)
+    }, [allProducts])
 
     return (
         <>
@@ -31,9 +31,9 @@ const ProductsListPage = (/*{ refreshProducts }*/) => {
 
                     <ProductsFilter setProducts={setFilteredeProducts} />
                 </Container>
-                <hr />
+
                 <Container className='d-grid mb-5'>
-                    <h1 className='text-center'>Nuestros Productos</h1>
+                    <h1 className='text-center mt-4'>Nuestros Productos</h1>
                     <hr />
                     {!filteredProducts ? <Loader /> : <ProductsList products={filteredProducts} />}
                     {/* {!userFavs ? <Loader /> : <ProductsList refreshProducts={getUserFavorites} />} */}
