@@ -45,8 +45,6 @@ const ProfilePage = ({ conversations }) => {
 
     useEffect(() => {
         refreshAll()
-        getUserConversations()
-
     }, [])
 
     // console.log(userConversations)
@@ -99,7 +97,7 @@ const ProfilePage = ({ conversations }) => {
                                             {console.log(elm)}
                                             < Col key={elm._id} >
                                                 < Button variant='secondary' onClick={() => gotoChat(elm._id)} >
-                                                    Chat</Button>
+                                                    {elm.product}</Button>
                                             </Col>
                                         </>
                                     )

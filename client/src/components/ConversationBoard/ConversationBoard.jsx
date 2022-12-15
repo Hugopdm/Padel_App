@@ -25,6 +25,8 @@ const ConversationBoard = ({ id, getConversation }) => {
             .catch(err => console.log(err))
     }
 
+    console.log(id)
+
     return (
         <>
 

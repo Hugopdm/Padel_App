@@ -27,7 +27,7 @@ const ConversationBoardPage = () => {
 
     }, [])
 
-    // console.log(conversation)
+
 
     return (
         <Container className='mb-5'>
@@ -42,15 +42,15 @@ const ConversationBoardPage = () => {
 
                     < Card key={elm._id} className='mb-5'>
                         <Card.Header>
-                            <h4>{elm.writer.name}</h4>
-                            <Image src="" alt="" />
+                            <h6>{elm.writer.userName}</h6>
+                            {/* <Image src="" alt="" /> */}
                         </Card.Header>
                         <Card.Body>
                             <blockquote className="blockquote mb-0">
                                 <p>{elm.message}</p>
                             </blockquote>
 
-                            <Button variant='danger' >Eliminar</Button>
+                            {/* <Button variant='danger' >Eliminar</Button> */}
                         </Card.Body>
                     </Card >
                 )

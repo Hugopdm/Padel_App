@@ -33,8 +33,16 @@ class ConversationService {
         return this.api.get(`/getMessages/${conversation_id}`)
     }
 
-    getUserConversations() {
-        return this.api.get('/getUserConversations')
+    getUserConversations(product_id) {
+        return this.api.get(`/getUserConversations/${product_id}`)
+    }
+
+    getOneConversation(conversation_id) {
+        return this.api.get(`/getOneConversation/${conversation_id}`)
+    }
+
+    getMyProductsConversations() {
+        return this.api.get('/getMyProductsConversations')
     }
 }
 

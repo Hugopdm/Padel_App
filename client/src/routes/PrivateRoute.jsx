@@ -1,11 +1,14 @@
 import { useContext } from "react"
-import { Outlet, Navigate } from "react-router-dom"
+import { Outlet, Navigate, useParams } from "react-router-dom"
 import Loader from "../components/Loader/Loader"
 import { AuthContext } from "../contexts/auth.context"
 
 const PrivateRoute = () => {
 
     const { user, isLoading } = useContext(AuthContext)
+
+    const { conversation_id } = useParams()
+
 
     // console.log(user, isLoading)
     if (isLoading) {

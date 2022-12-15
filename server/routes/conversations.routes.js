@@ -36,18 +36,49 @@ router.get("/getMessages/:conversation_id", (req, res, next) => {
     Conversation
         .findById(conversation_id)
         .select({ messages: 1, _id: 0 })
-        .then(messages => { res.json(messages) })
+        .populate({
+            path: 'messages',
+            populate: {
+                path: 'writer'
+            }
+        })
+        .then(messages => {
+            messages.messages = messages.messages.reverse()
+            res.json(messages)
+        })
         .catch(err => next(err))
 })
 
+router.get('/getUserConversations/:product_id', isAuthenticated, (req, res, next) => {
 
-router.get('/getUserConversations', isAuthenticated, (req, res, next) => {
+    const { product_id } = req.params
+
     Conversation
-        .find({ $or: [{ productOwner: req.payload._id }, { user: req.payload._id }] })
-        // .populate('product')
+        .findOne({ $and: [{ product: product_id }, { user: req.payload._id }] })
+        .then(conversation => res.json(conversation))
+        .catch(err => next(err))
+})
+
+router.get('/getOneConversation/:conversation_id', (req, res, next) => {
+    const { conversation_id } = req.params
+    Conversation
+        .findOne({ _id: conversation_id })
+        .then(conversation => {
+            res.json(conversation)
+        })
+        .catch(err => next(err))
+})
+
+router.get('/getMyProductsConversations', isAuthenticated, (req, res, next) => {
+
+    Conversation
+        .find({ productOwner: req.payload._id })
+        .populate('product')
+        .populate('user')
         .then(conversations => res.json(conversations))
         .catch(err => next(err))
 })
+
 
 
 

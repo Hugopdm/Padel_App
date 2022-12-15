@@ -17,6 +17,8 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
     const { user } = useContext(AuthContext)
     const { favProducts, refreshAll } = useContext(ProductContext)
 
+    // const [myConversations, setMyConversations] = useState()
+
     const product = {
         productName,
         imageUrl,
@@ -59,10 +61,31 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
     const createConversation = () => {
 
         conversationsService
-            .createConversation(_id)
-            .then(({ data }) => navigate(`/conversacion/${data._id}`))
+            .getUserConversations(_id)
+            .then(({ data }) => {
+
+                if (data) {
+                    navigate(`/conversacion/${data._id}`)
+                } else {
+
+                    conversationsService
+                        .createConversation(_id)
+                        .then(({ data }) => navigate(`/conversacion/${data._id}`))
+                        .catch(console.log)
+                }
+                // console.log(data)
+            })
             .catch(err => console.log(err))
     }
+
+    // const getMyConversations = () => {
+
+    //     conversationsService
+    //         .getUserConversations(_id)
+    //         .then(({ data }) => setMyConversation(data))
+    //         .catch(err => console.log(err))
+    // }
+
 
     const fireFinalActions = () => {
         closeModal()
@@ -93,14 +116,22 @@ function ProductCard({ productName, imageUrl, _id, owner, price, category, descr
 
 
                     {ids && !ids.includes(product._id) ?
+
                         <div className='d-grid'>
+
                             <Button variant="success" onClick={likeProduct}>Me interesa</Button>
+
                         </div>
+
                         :
                         <div className='d-grid'>
                             <Button variant="secondary" onClick={unlikeProduct}>No me interesa</Button>
-
-                            <Button variant="info" onClick={createConversation}>Contactar</Button>
+                            {owner !== user._id &&
+                                <Button variant="info" onClick={createConversation}>Contactar</Button>
+                            }
+                            {/* {owner === user._id &&
+                                <Button variant="dark" onClick={createConversation}>Mensajes</Button>
+                            } */}
 
                         </div>
 

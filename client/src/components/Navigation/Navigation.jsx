@@ -10,7 +10,7 @@ const Navigation = () => {
 
     return (
 
-        <Navbar className='navbar fixed-top' bg="dark" variant='dark' expand="lg">
+        <Navbar className='navbar' bg="dark" variant='dark' expand="lg">
             <Container>
                 <Link to='/'>
                     <Navbar.Brand as="div">Padeller</Navbar.Brand>
@@ -43,7 +43,9 @@ const Navigation = () => {
                                 <Link to='/'>
                                     <Nav.Link as="div" onClick={logoutUser}>Cerrar sesión</Nav.Link>
                                 </Link>
-
+                                <Link to="/ventas">
+                                    <Nav.Link as="div">Ventas</Nav.Link>
+                                </Link>
                                 <Link to="/perfil">
                                     <Nav.Link as="div">Mi perfil</Nav.Link>
                                 </Link>
