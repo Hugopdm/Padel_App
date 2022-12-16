@@ -1,0 +1,7 @@
+.price {
+    text-transform: bold;
+}
+
+.products {
+    border-radius: 50% 10% / 20% 40%;
+}
